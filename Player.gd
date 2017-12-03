@@ -1,4 +1,4 @@
-extends KinematicBody2D
+extends RigidBody2D
 
 # class member variables go here, for example:
 var ship_sprite
@@ -10,7 +10,7 @@ func _ready():
 
 func _process(delta):
 	if Input.is_mouse_button_pressed(BUTTON_LEFT):
-		print("click")
+		pass
 
 func callme():
 	print ("You called?")
