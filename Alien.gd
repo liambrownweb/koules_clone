@@ -16,17 +16,13 @@ func _ready():
 	# Called every time the node is added to the scene.
 	# Initialization here
 	pass
-	
+
 func _process(delta):
 	sprite = get_node("Sprite")
 	if target != null:
 		moveToTarget()
 		rotateTowardTarget()
-		
-func calculateVectorMagnitude(vector):
-	var magnitude = sqrt(pow(vector[0], 2) + pow(vector[1], 2))
-	return magnitude
-		
+
 func calculateUnitVector(vector):
 	var unit_vector
 	var magnitude = calculateVectorMagnitude(vector)
@@ -35,7 +31,12 @@ func calculateUnitVector(vector):
 	else:
 		unit_vector = vector
 	return unit_vector
-	
+
+func calculateVectorMagnitude(vector):
+	var magnitude = sqrt(pow(vector[0], 2) + pow(vector[1], 2))
+	return magnitude
+
+
 func killme():
 	print("Alien died")
 
@@ -48,7 +49,7 @@ func moveToTarget():
 		delta_vector = unit_vector_to_target
 	elif linear_velocity_magnitude < 100:
 		delta_vector = thrust_factor * (unit_vector_to_target - unit_linear_velocity)
-	else: 
+	else:
 		delta_vector = Vector2(0, 0)
 	self.set_applied_force(delta_vector)
 
@@ -58,7 +59,3 @@ func rotateTowardTarget():
 
 func setTarget(node):
 	target = node
-#func _process(delta):
-#	# Called every frame. Delta is time since last frame.
-#	# Update game logic here.
-#	pass

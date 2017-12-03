@@ -11,7 +11,7 @@ config_version=3
 [application]
 
 config/name="Koules copy"
-run/main_scene="res://Game.tscn"
+run/main_scene="res://Root.tscn"
 config/icon="res://icon.png"
 
 [gdnative]
