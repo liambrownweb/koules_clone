@@ -1,0 +1,43 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Player.gd" type="Script" id=1]
+[ext_resource path="res://Cartoon_Moon_Rocket.png" type="Texture" id=2]
+
+[node name="Player" type="RigidBody2D"]
+
+position = Vector2( 358.794, 287.759 )
+input_pickable = false
+collision_layer = 1
+collision_mask = 1
+mode = 0
+mass = 0.1
+friction = 1.0
+bounce = 1.0
+gravity_scale = 0.0
+custom_integrator = false
+continuous_cd = 0
+contacts_reported = 0
+contact_monitor = true
+sleeping = false
+can_sleep = true
+linear_velocity = Vector2( 0, 0 )
+linear_damp = -1.0
+angular_velocity = 0.0
+angular_damp = -1.0
+script = ExtResource( 1 )
+
+[node name="Ship" type="Sprite" parent="."]
+
+position = Vector2( 0.00808644, 0.240998 )
+scale = Vector2( 0.0597589, 0.0524996 )
+texture = ExtResource( 2 )
+region_rect = Rect2( 0, 0, 480, 800 )
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+
+position = Vector2( 0.438416, -0.615509 )
+scale = Vector2( 0.462627, 0.635885 )
+build_mode = 0
+polygon = PoolVector2Array( -0.515076, -31.9222, -16.6672, -20.1022, -23.3973, -7.70093, -23.3973, 0.243652, -21.3784, 8.38202, -29.4544, 10.5135, -32.1464, 31.4407, 28.4243, 31.8282, 30.4434, 16.1328, 26.7418, 9.54465, 21.0212, 8.38202, 23.0403, -2.85666, 21.6943, -10.0262, 15.9737, -19.9084 )
+
+

@@ -2,6 +2,11 @@ extends RigidBody2D
 
 var delta_vector = Vector2(0.0, 0.0)
 var linear_velocity_magnitude
+var repulsor = false
+var repulsor_charge = 0
+var repulsor_charge_ready_time = 2
+var repulsor_max_force = 50000
+var repulsor_range = 50
 var target
 var thrust_factor = 30
 var unit_linear_velocity = Vector2(0.0, 0.0)
@@ -18,10 +23,22 @@ func _ready():
 	pass
 
 func _process(delta):
+	repulsor_charge += delta
+	if (readyToFire()):
+		fireRepulsor()		
 	sprite = get_node("Sprite")
 	if target != null:
 		moveToTarget()
 		rotateTowardTarget()
+		
+func activateRepulsor():
+	repulsor = true
+
+func _calculateDistanceToTarget():
+	var distance = repulsor_range + 10
+	var distance_vector = self.position - target.position
+	distance = sqrt(pow(distance_vector[0], 2) + pow(distance_vector[1], 2))
+	return distance
 
 func calculateUnitVector(vector):
 	var unit_vector
@@ -35,7 +52,11 @@ func calculateUnitVector(vector):
 func calculateVectorMagnitude(vector):
 	var magnitude = sqrt(pow(vector[0], 2) + pow(vector[1], 2))
 	return magnitude
-
+	
+func fireRepulsor():
+	repulsor_charge = 0
+	var game = get_node("/root/Root/Game")
+	game.setRepulsorBurstAt(self.position, repulsor_max_force)
 
 func killme():
 	print("Alien died")
@@ -59,3 +80,8 @@ func rotateTowardTarget():
 
 func setTarget(node):
 	target = node
+	
+func readyToFire():
+	return (target
+	&& repulsor_charge >= repulsor_charge_ready_time
+	&& _calculateDistanceToTarget() <= repulsor_range)

@@ -1,6 +1,5 @@
 extends RigidBody2D
 
-# class member variables go here, for example:
 var ship_sprite
 
 func _ready():
@@ -12,8 +11,19 @@ func _process(delta):
 	if Input.is_mouse_button_pressed(BUTTON_LEFT):
 		pass
 
+func _input(event):
+	if event is InputEventKey:
+		if event.scancode == KEY_SPACE && event.pressed:
+			fireRepulsor()
+
+
 func callme():
 	print ("You called?")
+
+func fireRepulsor():
+	var game = get_node("/root/Root/Game")
+	game.setRepulsorBurstAt(self.position, 10000)
+
 	
 func killme():
 	print ("I died!")
