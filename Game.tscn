@@ -1,13 +1,21 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Game.gd" type="Script" id=1]
 [ext_resource path="res://Walls.gd" type="Script" id=2]
 [ext_resource path="res://Player.tscn" type="PackedScene" id=3]
+[ext_resource path="res://images/starfield.png" type="Texture" id=4]
+[ext_resource path="res://images/starfield.jpg" type="Texture" id=5]
 
 [sub_resource type="RectangleShape2D" id=1]
 
 custom_solver_bias = 0.0
 extents = Vector2( 5.0534, 12.3253 )
+
+[sub_resource type="CanvasItemMaterial" id=2]
+
+render_priority = 0
+blend_mode = 0
+light_mode = 0
 
 [node name="Game" type="Node2D"]
 
@@ -16,8 +24,8 @@ script = ExtResource( 1 )
 
 [node name="Walls" type="StaticBody2D" parent="."]
 
-position = Vector2( 478, 267.787 )
-scale = Vector2( 15.9375, 9.3996 )
+position = Vector2( 582.628, 342.858 )
+scale = Vector2( 25.0545, 16.4044 )
 input_pickable = false
 collision_layer = 1
 collision_mask = 1
@@ -35,6 +43,7 @@ shape = SubResource( 1 )
 
 [node name="Top" type="CollisionShape2D" parent="Walls"]
 
+material = SubResource( 2 )
 position = Vector2( -0.19198, -32.8418 )
 scale = Vector2( 6.66022, 0.0704703 )
 shape = SubResource( 1 )
@@ -52,5 +61,81 @@ scale = Vector2( 0.124164, 2.58755 )
 shape = SubResource( 1 )
 
 [node name="Player" parent="." instance=ExtResource( 3 )]
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+
+layer = -1
+offset = Vector2( 0, 0 )
+rotation = 0.0
+scale = Vector2( 1, 1 )
+scroll_offset = Vector2( 0, 0 )
+scroll_base_offset = Vector2( 0, 0 )
+scroll_base_scale = Vector2( 1, 1 )
+scroll_limit_begin = Vector2( -5000, -5000 )
+scroll_limit_end = Vector2( 1e+06, 100000 )
+scroll_ignore_camera_zoom = true
+
+[node name="ParallaxLayer3" type="ParallaxLayer" parent="ParallaxBackground"]
+
+position = Vector2( 32, 33 )
+z = 2
+motion_scale = Vector2( 1, 1 )
+motion_offset = Vector2( 0, 0 )
+motion_mirroring = Vector2( 0, 0 )
+
+[node name="ParallaxLayer2" type="ParallaxLayer" parent="ParallaxBackground"]
+
+self_modulate = Color( 0.597656, 0.133072, 0.133072, 1 )
+rotation = 0.0628319
+z = 2
+motion_scale = Vector2( 0.5, 0.5 )
+motion_offset = Vector2( 0, 0 )
+motion_mirroring = Vector2( 0, 0 )
+
+[node name="starfield" type="Sprite" parent="ParallaxBackground/ParallaxLayer2"]
+
+position = Vector2( 444.49, 258.172 )
+rotation = 0.603884
+scale = Vector2( 0.551746, 0.931522 )
+texture = ExtResource( 4 )
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
+
+modulate = Color( 0.339844, 0.339844, 0.339844, 1 )
+position = Vector2( -13, 0 )
+motion_scale = Vector2( 0.25, 0.25 )
+motion_offset = Vector2( 10, 10 )
+motion_mirroring = Vector2( 0, 0 )
+
+[node name="starfield" type="Sprite" parent="ParallaxBackground/ParallaxLayer"]
+
+position = Vector2( 414.116, 317.079 )
+scale = Vector2( 0.528732, 0.667313 )
+texture = ExtResource( 5 )
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+position = Vector2( 364.011, 281.966 )
+scale = Vector2( 1, 1 )
+anchor_mode = 1
+rotating = false
+current = true
+zoom = Vector2( 1, 1 )
+limit_left = -287
+limit_top = -238
+limit_right = 1518
+limit_bottom = 1013
+limit_smoothed = true
+drag_margin_h_enabled = true
+drag_margin_v_enabled = true
+smoothing_enabled = true
+smoothing_speed = 5.0
+drag_margin_left = 0.2
+drag_margin_top = 0.2
+drag_margin_right = 0.2
+drag_margin_bottom = 0.2
+editor_draw_screen = true
+editor_draw_limits = true
+editor_draw_drag_margin = true
 
 

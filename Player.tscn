@@ -1,7 +1,56 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Player.gd" type="Script" id=1]
 [ext_resource path="res://Cartoon_Moon_Rocket.png" type="Texture" id=2]
+
+[sub_resource type="Gradient" id=2]
+
+offsets = PoolRealArray( 0, 0.00332226, 0.564784, 1 )
+colors = PoolColorArray( 0, 0, 0, 1, 1, 0.963684, 0.726562, 1, 1, 0.699219, 0.125, 1, 0.320312, 0, 0, 1 )
+
+[sub_resource type="GradientTexture" id=3]
+
+gradient = SubResource( 2 )
+width = 2048
+
+[sub_resource type="ParticlesMaterial" id=1]
+
+render_priority = 0
+trail_divisor = 1
+emission_shape = 2
+emission_box_extents = Vector3( 3, 3, 3 )
+flag_align_y = false
+flag_rotate_y = false
+flag_disable_z = true
+spread = 180.0
+flatness = 0.0
+gravity = Vector3( 0, 0, 0 )
+initial_velocity = 300.0
+initial_velocity_random = 0.71
+angular_velocity = 0.0
+angular_velocity_random = 0.0
+orbit_velocity = 200.0
+orbit_velocity_random = 1.0
+linear_accel = 0.0
+linear_accel_random = 0.0
+radial_accel = 0.0
+radial_accel_random = 0.0
+tangential_accel = 0.0
+tangential_accel_random = 0.0
+damping = 69.42
+damping_random = 1.0
+angle = 0.0
+angle_random = 0.0
+scale = 2.79
+scale_random = 1.0
+color_ramp = SubResource( 3 )
+hue_variation = 0.0
+hue_variation_random = 0.24
+anim_speed = 0.0
+anim_speed_random = 0.0
+anim_offset = 0.0
+anim_offset_random = 0.0
+anim_loop = false
 
 [node name="Player" type="RigidBody2D"]
 
@@ -16,7 +65,7 @@ bounce = 1.0
 gravity_scale = 0.0
 custom_integrator = false
 continuous_cd = 0
-contacts_reported = 0
+contacts_reported = 3
 contact_monitor = true
 sleeping = false
 can_sleep = true
@@ -39,5 +88,28 @@ position = Vector2( 0.438416, -0.615509 )
 scale = Vector2( 0.462627, 0.635885 )
 build_mode = 0
 polygon = PoolVector2Array( -0.515076, -31.9222, -16.6672, -20.1022, -23.3973, -7.70093, -23.3973, 0.243652, -21.3784, 8.38202, -29.4544, 10.5135, -32.1464, 31.4407, 28.4243, 31.8282, 30.4434, 16.1328, 26.7418, 9.54465, 21.0212, 8.38202, 23.0403, -2.85666, 21.6943, -10.0262, 15.9737, -19.9084 )
+
+[node name="Explosion" type="Particles2D" parent="."]
+
+emitting = false
+amount = 500
+lifetime = 5.0
+one_shot = true
+preprocess = 0.0
+speed_scale = 1.65
+explosiveness = 0.91
+randomness = 0.0
+fixed_fps = 0
+fract_delta = true
+visibility_rect = Rect2( -100, -100, 200, 200 )
+local_coords = true
+draw_order = 0
+process_material = SubResource( 1 )
+texture = null
+normal_map = null
+h_frames = 1
+v_frames = 1
+
+[connection signal="body_entered" from="." to="." method="_on_Player_body_entered"]
 
 

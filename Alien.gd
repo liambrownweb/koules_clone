@@ -18,6 +18,7 @@ var thrust_line
 var velocity_line
 
 func _ready():
+	continuous_cd = true
 	# Called every time the node is added to the scene.
 	# Initialization here
 	pass
@@ -57,6 +58,9 @@ func fireRepulsor():
 	repulsor_charge = 0
 	var game = get_node("/root/Root/Game")
 	game.setRepulsorBurstAt(self.position, repulsor_max_force)
+
+func getTarget():
+	return target
 
 func killme():
 	print("Alien died")
