@@ -1,0 +1,90 @@
+[gd_scene load_steps=6 format=2]
+
+[sub_resource type="Gradient" id=3]
+
+offsets = PoolRealArray( 0, 0.0797342, 0.129568, 0.362126, 0.634551, 1 )
+colors = PoolColorArray( 0, 0.15625, 1, 1, 0.614802, 0.675481, 0.925481, 0.0331373, 0.999054, 1, 0.878906, 1, 0.99795, 0.946078, 0.683689, 1, 1, 0, 0, 1, 0, 0, 0, 0 )
+
+[sub_resource type="GradientTexture" id=4]
+
+gradient = SubResource( 3 )
+width = 8192
+
+[sub_resource type="Curve" id=5]
+
+min_value = 0.0
+max_value = 10.0
+bake_resolution = 100
+_data = [ Vector2( 0, 1.88476 ), 0.0, 0.0, 0, 0, Vector2( 1, 5.85937 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=6]
+
+width = 2048
+curve = SubResource( 5 )
+
+[sub_resource type="ParticlesMaterial" id=7]
+
+resource_local_to_scene = true
+render_priority = 0
+trail_divisor = 1
+emission_shape = 2
+emission_box_extents = Vector3( 5, 4, 1 )
+flag_align_y = false
+flag_rotate_y = false
+flag_disable_z = true
+spread = 4.66
+flatness = 0.0
+gravity = Vector3( 0, 0, 0 )
+initial_velocity = 1000.0
+initial_velocity_random = 0.5
+angular_velocity = 0.0
+angular_velocity_random = 0.0
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+linear_accel = -100.0
+linear_accel_random = 0.0
+radial_accel = -100.0
+radial_accel_random = 0.0
+tangential_accel = 0.0
+tangential_accel_random = 1.0
+damping = 0.0
+damping_random = 0.0
+angle = 45.0
+angle_random = 1.0
+scale = 1.0
+scale_random = 0.0
+scale_curve = SubResource( 6 )
+color_ramp = SubResource( 4 )
+hue_variation = 0.0
+hue_variation_random = 0.0
+anim_speed = 0.0
+anim_speed_random = 0.0
+anim_offset = 0.0
+anim_offset_random = 0.0
+anim_loop = false
+
+[node name="Contrail" type="Particles2D"]
+
+show_behind_parent = true
+rotation = 1.5708
+z = -1
+emitting = true
+amount = 2000
+lifetime = 1.5
+one_shot = false
+preprocess = 0.0
+speed_scale = 5.0
+explosiveness = 0.0
+randomness = 1.0
+fixed_fps = 0
+fract_delta = true
+visibility_rect = Rect2( -100, -100, 200, 200 )
+local_coords = false
+draw_order = 1
+process_material = SubResource( 7 )
+texture = null
+normal_map = null
+h_frames = 1
+v_frames = 1
+
+

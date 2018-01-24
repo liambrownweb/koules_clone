@@ -1,7 +1,11 @@
 extends RigidBody2D
 
+const math = preload("math.gd")
+
 var delta_vector = Vector2(0.0, 0.0)
+var game
 var linear_velocity_magnitude
+var living = true
 var repulsor = false
 var repulsor_charge = 0
 var repulsor_charge_ready_time = 2
@@ -18,19 +22,20 @@ var thrust_line
 var velocity_line
 
 func _ready():
+	game = get_node("/root/Root/Game")
 	continuous_cd = true
-	# Called every time the node is added to the scene.
-	# Initialization here
-	pass
 
 func _process(delta):
-	repulsor_charge += delta
-	if (readyToFire()):
-		fireRepulsor()		
-	sprite = get_node("Sprite")
-	if target != null:
-		moveToTarget()
-		rotateTowardTarget()
+	if (!living): 
+		pass
+	else:
+		repulsor_charge += delta
+		if (readyToFire()):
+			fireRepulsor()		
+		sprite = get_node("Sprite")
+		if target != null:
+			moveToTarget()
+			rotateTowardTarget()
 		
 func activateRepulsor():
 	repulsor = true
@@ -62,8 +67,19 @@ func fireRepulsor():
 func getTarget():
 	return target
 
-func killme():
-	print("Alien died")
+func killme():	
+	set_applied_force(math.zero_velocity)
+	set_applied_torque(0)
+	set_linear_velocity(math.zero_velocity)
+	set_angular_velocity(0)
+	sprite.hide()
+	living = false
+	continuous_cd = false
+	get_node("Explosion").emitting = true
+	var timer = Timer.new()
+	timer.connect("timeout", game, "alienDied", [self])
+	timer.set_wait_time(5)
+	timer.start()
 
 func moveToTarget():
 	vector_to_target = self.position - target.position
@@ -89,3 +105,8 @@ func readyToFire():
 	return (target
 	&& repulsor_charge >= repulsor_charge_ready_time
 	&& _calculateDistanceToTarget() <= repulsor_range)
+
+func _on_Alien_body_entered( body ):
+	if "deadly" in body:
+		var bodies = get_colliding_bodies()
+		killme()

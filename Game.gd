@@ -49,6 +49,11 @@ func playerDied():
 	for i in npcs:
 		if i.getTarget() == player:
 			i.setTarget(null)
+			
+func alienDied(alien):
+	for i in npcs:
+		if i == alien:
+			remove_child(alien)
 	
 func setRepulsorBurstAt(burst_position, burst_force):
 	var force_vector = calculateRepulsorForceVector(burst_position, player.position, burst_force)
